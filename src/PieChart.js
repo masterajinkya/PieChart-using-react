@@ -3,42 +3,42 @@ import Chart from "chart.js/auto"
 
 function Piechart() {
 
-    const [input1, setInput1] = useState('')
-    const [input2, setInput2] = useState('')
+    const [data, setData] = useState('')
+    const [data2, setData2] = useState('')
     const [error, setError] = useState('')
 
-    const handleChange1 = (e) =>{
-        setInput1(e.target.value)
+    const handleData1 = (e) =>{
+        setData(e.target.value)
     }
 
     useEffect(() =>{
-        if(input1 !== ''){
-            setInput2(100 - Number(input1))
+        if(data !== ''){
+            setData2(100 - Number(data))
         }
-    }, [input1])
+    }, [data])
 
-    const handleChange2 = (e) =>{
-        setInput2(e.target.value)
+    const handleData2 = (e) =>{
+        setData2(e.target.value)
     }
 
     useEffect(() =>{
-        if(input2 !== ''){
-            setInput1(100 - Number(input2))
+        if(data2 !== ''){
+            setData(100 - Number(data2))
         }
-    }, [input2])
+    }, [data2])
 
 
-    const createChart = (e) => {
+    const handleChart = (e) => {
         e.preventDefault()
-        const createChart = document.getElementById("chart");
-        if (!error & input1 !== '') {
-            new Chart(createChart, {
+        const handleChart = document.getElementById("chart");
+        if (!error & data !== '') {
+            new Chart(handleChart, {
                 type: 'pie',
                 data: {
-                    labels: ["Input1", "Input2"],
+                    labels: ["data", "data2"],
                     datasets: [{
                         label: "Chart Data",
-                        data: [input1, input2],
+                        data: [data, data2],
                         backgroundColor: ['green', 'red'],
                     }]
                 },
@@ -49,28 +49,28 @@ function Piechart() {
     }
 
     useEffect(() => {
-        if (input1 > 100 || input2 > 100) {
+        if (data > 100 || data2 > 100) {
             setError('Please enter proper value.')
         } else {
             setError('')
         }
-    }, [input1, input2])
+    }, [data, data2])
 
     const styles = {height:'600px', width:'450px', margin: '30px auto'}
   return (
     <>
 
-        <form onSubmit={createChart}>
-            <div className='offset-sm-2 row d-flex mt-3'>
+        <form onSubmit={handleChart}>
+            <div className=' row d-flex mt-3'>
                 <div className='form-group col-sm-3'>
                     <label>Box1</label>
-                    <input value={input1} onChange={handleChange1} type='text' id='box1' className='form-control'/>
+                    <input value={data} onChange={handleData1} type='text' id='box1' className='form-control'/>
                     <p className='text-danger'>{error}</p>
                 </div>
 
                 <div className='form-group col-sm-3'>
                     <label>Box2</label>
-                    <input  value={input2} onChange={handleChange2} type='text' id='box2' className='form-control'/>
+                    <input  value={data2} onChange={handleData2} type='text' id='box2' className='form-control'/>
                 </div>
 
                 <div className='col-sm-2 text-center mt-4'>
